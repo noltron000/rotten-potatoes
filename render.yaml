@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: rotten-potatoes
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: node source/app.mjs
+    healthCheckPath: /rotten-potatoes/
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUBLIC_BASE_PATH
+        value: /rotten-potatoes
+      - key: MONGODB_URI
+        sync: false
+      - key: TMDB_API_KEY
+        sync: false

@@ -1,7 +1,7 @@
 {{#if review}}
-<form class='review-form' method='POST' action='/reviews/{{review.ids.db}}?_method=PUT'>
+<form class='review-form' method='POST' action='{{url (join (join '/reviews/' review.ids.db) '?_method=PUT')}}'>
 {{else}}
-<form class='review-form' method='POST' action='/reviews'>
+<form class='review-form' method='POST' action='{{url '/reviews'}}'>
 {{/if}}
 
 	<h1>{{#if review}}Edit a Review{{else}}Create a Review{{/if}}</h1>
@@ -126,7 +126,7 @@
 		</button>
 
 		<a
-			href='/'
+			href='{{url '/'}}'
 			class='button'
 		>
 			Cancel

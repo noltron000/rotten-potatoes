@@ -1,0 +1,11 @@
+name = "rotten-potatoes-proxy"
+main = "worker.mjs"
+compatibility_date = "2026-11-08"
+workers_dev = false
+
+[[routes]]
+pattern = "projects.nebuloid.dev/rotten-potatoes*"
+zone_name = "nebuloid.dev"
+
+[vars]
+RENDER_ORIGIN = "https://rotten-potatoes.onrender.com"
