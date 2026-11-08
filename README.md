@@ -1,5 +1,5 @@
 # Rotten Potatoes
-Project for *Backend Web 1.1* @[MakeSchool].
+Project for *Backend Web 1.1* @[MakeSchool]. Live at **https://projects.nebuloid.dev/rotten-potatoes/**.
 
 If you spot an error, mark an issue on my github!
 
