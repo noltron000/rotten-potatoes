@@ -8,4 +8,4 @@ pattern = "projects.nebuloid.dev/rotten-potatoes*"
 zone_name = "nebuloid.dev"
 
 [vars]
-RENDER_ORIGIN = "https://rotten-potatoes.onrender.com"
+RENDER_ORIGIN = "https://rotten-potatoes-0gsu.onrender.com"
