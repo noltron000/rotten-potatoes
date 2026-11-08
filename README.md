@@ -47,8 +47,10 @@ The rest of `projects.nebuloid.dev` continues to use its existing **GitHub Pages
 
 ### Render
 1. Create a Render Blueprint from this repository; [render.yaml](./render.yaml) defines the Node web service.
+	If the service already exists, sync the Blueprint and confirm it tracks `main` with auto-deploy enabled.
 1. Set the prompted `MONGODB_URI` to the Atlas connection string and `TMDB_API_KEY` to the TMDB API key.
 1. Deploy and note the service's `onrender.com` hostname.
+	The Blueprint tracks `main` and enables automatic deploys on pushes to that branch.
 
 The Blueprint uses Render's free web-service plan, which can sleep while idle and have a cold start.
 Change `plan` in `render.yaml` if you want an always-on service.
@@ -61,15 +63,22 @@ The build command compiles Sass during deployment; the start command runs the bu
 
 1. Add `nebuloid.dev` to Cloudflare and import its current DNS records.
 1. Verify all imported records, especially any mail-related MX and TXT records, before changing nameservers.
-1. In Namecheap, switch the domain to the two Cloudflare nameservers shown in the Cloudflare dashboard. Wait until Cloudflare confirms the zone is active.
-1. In Cloudflare DNS, keep `projects.nebuloid.dev` pointed at the existing GitHub Pages origin and enable Cloudflare proxying for that record. Do not replace the GitHub Pages origin with Render.
+1. In Namecheap, switch the domain to the two Cloudflare nameservers shown in the Cloudflare dashboard.
+	Wait until Cloudflare confirms the zone is active.
+1. In Cloudflare DNS, keep `projects.nebuloid.dev` pointed at the existing GitHub Pages origin and enable Cloudflare proxying for that record.
+	Do not replace the GitHub Pages origin with Render.
 1. In [cloudflare/wrangler.toml](./cloudflare/wrangler.toml), replace `RENDER_ORIGIN` with the deployed Render service's HTTPS origin.
-1. From the repository root, authenticate Wrangler and deploy the Worker:
+1. The `Deploy Cloudflare Worker` GitHub Actions workflow deploys on pushes to `main` that change files under `cloudflare/`.
+	It can also be started manually from the repository's **Actions** tab.
+1. To deploy manually from the repository root, authenticate Wrangler and run:
 	```sh
 	npx wrangler deploy --config cloudflare/wrangler.toml
 	```
 
-The Worker routes `/rotten-potatoes` and its descendants to Render while preserving the path (required by the app's base-path setting). Its wildcard route also catches query strings; similarly named but unrelated paths continue to GitHub Pages. Keep `PUBLIC_BASE_PATH` in Render and the Worker's base path consistent if the public URL changes.
+The Worker routes `/rotten-potatoes` and its descendants to Render while preserving the path (required by the app's base-path setting).
+Its wildcard route also catches query strings; similarly named but unrelated paths continue to GitHub Pages.
+Keep `PUBLIC_BASE_PATH` in Render and the Worker's base path consistent if the public URL changes.
+Namecheap only manages the domain registration and nameservers, and Atlas continues to host the app's data; neither needs a code deployment on each push.
 
 # Component Structure
 - **Main Layout:**

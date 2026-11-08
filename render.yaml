@@ -2,6 +2,8 @@ services:
   - type: web
     name: rotten-potatoes
     runtime: node
+    branch: main
+    autoDeploy: true
     plan: free
     buildCommand: npm ci --include=dev && npm run build
     startCommand: node source/app.mjs
