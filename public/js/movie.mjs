@@ -1,6 +1,9 @@
 // `reviewPagination` and `responseReviews` shall already be
 // 	defined by a script that ran within `movies-show.hbs`.
 
+const basePath = document.body.dataset.basePath ?? ''
+const appUrl = (path) => `${basePath}${path}`
+
 // Track all reviews from the responses.
 var reviewPages = [ ]
 
@@ -88,7 +91,7 @@ const loadMovieDetailsClick = async (event) => {
 		button.disabled = true
 		button.textContent = 'Loading Movie Details...'
 		try {
-			const response = await fetch(`/movies/${movie.dataset.movieId}?fragment=details`)
+			const response = await fetch(appUrl(`/movies/${movie.dataset.movieId}?fragment=details`))
 			if (!response.ok) {
 				throw new Error(`Movie details request failed (${response.status})`)
 			}
@@ -252,10 +255,10 @@ const fetchReviews = async (source, index) => {
 
 	let response
 	if (source === 'db') {
-		response = await fetch(`/reviews?movieId=${movieId}&source=${source}&fragment=true`, options)
+		response = await fetch(appUrl(`/reviews?movieId=${movieId}&source=${source}&fragment=true`), options)
 	}
 	else {
-		response = await fetch(`/reviews?movieId=${movieId}&source=${source}&page=${index}&fragment=true`, options)
+		response = await fetch(appUrl(`/reviews?movieId=${movieId}&source=${source}&page=${index}&fragment=true`), options)
 	}
 	const blob = await response.blob( )
 	const markup = await blob.text( )

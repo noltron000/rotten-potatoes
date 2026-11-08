@@ -24,11 +24,26 @@ import methodOverride from 'method-override'
 // Initialize express app.
 const app = express()
 app.locals.devMode = process.env.NODE_ENV === 'development'
+const basePathValue = process.env.PUBLIC_BASE_PATH?.trim() ?? ''
+const basePath = basePathValue.replace(/\/+$/, '')
+if (
+	(basePathValue && !basePath && basePathValue !== '/')
+	|| (basePath && (
+		!basePath.startsWith('/')
+		|| basePath.includes('//')
+		|| /[?#]/.test(basePath)
+	))
+) {
+	throw new Error('PUBLIC_BASE_PATH must be an absolute URL path, such as /rotten-potatoes')
+}
+app.locals.basePath = basePath
+
+const router = express.Router()
 
 const reloadClients = new Set()
 
 if (app.locals.devMode) {
-	app.get('/__dev/reload', (req, res) => {
+	router.get('/__dev/reload', (req, res) => {
 		res.setHeader('Content-Type', 'text/event-stream')
 		res.setHeader('Cache-Control', 'no-cache')
 		res.setHeader('Connection', 'keep-alive')
@@ -61,6 +76,7 @@ app.engine('hbs', expressHbs({
 		json: (context) => (JSON.stringify(context, null, '\t')),
 		equals: (context, value) => (context === value),
 		join: (string, value) => ([string, value].join('')),
+		url: (path) => (`${basePath}${path}`),
 		repeat: (from, to, block) => {
 
 			if (to === undefined) {
@@ -103,7 +119,8 @@ const connectionString = process.env.MONGODB_URI ?? 'mongodb://127.0.0.1:27017/r
 const port = process.env.PORT ?? 3000
 
 // Serve static files from the public folder.
-app.use(express.static('public'))
+const mountPath = basePath || '/'
+app.use(mountPath, express.static('public'))
 
 // Override with operations like those with DELETE or PUT.
 app.use(methodOverride('_method'))
@@ -112,11 +129,12 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded({extended: true}))
 
 // ROUTES
-root(app)
+root(router)
 // ⚠️ admin(app)
-movies(app)
-reviews(app)
-comments(app)
+movies(router)
+reviews(router)
+comments(router)
+app.use(mountPath, router)
 
 // Connect before accepting requests so database-backed routes are ready.
 const start = async ( ) => {
@@ -133,7 +151,7 @@ const start = async ( ) => {
 	app.listen(port, ( ) => {
 		console.info(
 			`App listening on port ${port}!`
-			+ `\nhttp://localhost:${port}/`
+			+ `\nhttp://localhost:${port}${basePath}/`
 		)
 	})
 }

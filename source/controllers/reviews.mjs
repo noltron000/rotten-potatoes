@@ -65,7 +65,7 @@ const controller = (app) => {
 
 			// refer to main page on an invalid id entry.
 			if (id == undefined) {
-				res.redirect('/')
+				res.redirect(`${req.baseUrl}/`)
 				return // dont mess with headers anymore
 			}
 
@@ -367,7 +367,7 @@ const controller = (app) => {
 			dbReview = eject(new Review({review: dbReview}))
 
 			// 📤️ send the data to the frontend.
-			res.redirect(`/reviews/${dbReview.ids.db}?source=db`)
+			res.redirect(`${req.baseUrl}/reviews/${dbReview.ids.db}?source=db`)
 		}
 		catch (err) {
 			console.error(err.message)
@@ -437,7 +437,7 @@ const controller = (app) => {
 			dbReview = eject(new Review({review: dbReview}))
 
 			// 📤️ send the data to the frontend.
-			res.redirect(`/reviews/${dbReview.ids.db}?source=db`)
+			res.redirect(`${req.baseUrl}/reviews/${dbReview.ids.db}?source=db`)
 		}
 		catch (err) {
 			console.error(err.message)
@@ -466,13 +466,13 @@ const controller = (app) => {
 			// == TODO ==
 			// Reenable admin functionality below.
 			if (req.body.admin !== undefined) {
-				res.redirect('/admin')
+				res.redirect(`${req.baseUrl}/admin`)
 			}
 			else { }
 			*/
 
 			// 📤️ send the data to the frontend.
-			res.redirect(`/movies/${movieId}`)
+			res.redirect(`${req.baseUrl}/movies/${movieId}`)
 		}
 		catch (err) {
 			console.error(err.message)

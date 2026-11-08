@@ -11,23 +11,23 @@
 		<title>{{#if title}}{{title}} | {{/if}}Rotten Potatoes</title>
 		<link
 			rel='stylesheet'
-			href='/css/reset.css'
+			href='{{url '/css/reset.css'}}'
 		/>
 		<link
 			rel='stylesheet'
-			href='/css/styles.css'
+			href='{{url '/css/styles.css'}}'
 		/>
 	</head>
 
-	<body>
+	<body data-base-path='{{basePath}}'>
 		<header class='site-header'>
-			<a class='site-brand' href='/'>Rotten Potatoes</a>
+			<a class='site-brand' href='{{url '/'}}'>Rotten Potatoes</a>
 			<nav aria-label='Main navigation'>
-				<a href='/'>Home</a>
-				<a href='/movies?sortBy=now-playing'>Now Playing</a>
-				<a href='/movies?sortBy=popular'>Popular</a>
-				<a href='/movies?sortBy=top-rated'>Top Rated</a>
-				<a href='/movies?sortBy=upcoming'>Upcoming</a>
+				<a href='{{url '/'}}'>Home</a>
+				<a href='{{url '/movies?sortBy=now-playing'}}'>Now Playing</a>
+				<a href='{{url '/movies?sortBy=popular'}}'>Popular</a>
+				<a href='{{url '/movies?sortBy=top-rated'}}'>Top Rated</a>
+				<a href='{{url '/movies?sortBy=upcoming'}}'>Upcoming</a>
 			</nav>
 		</header>
 
@@ -36,10 +36,10 @@
 			{{{body}}}
 		</div>
 
-		<script type='module' src='/js/movie.mjs'></script>
+		<script type='module' src='{{url '/js/movie.mjs'}}'></script>
 		{{#if devMode}}
 		<script>
-			const developmentEvents = new EventSource('/__dev/reload')
+			const developmentEvents = new EventSource('{{url '/__dev/reload'}}')
 			developmentEvents.onmessage = () => window.location.reload()
 		</script>
 		{{/if}}

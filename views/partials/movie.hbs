@@ -17,7 +17,7 @@
 	<!-- Main Poster --->
 	<a
 		class='movie-poster'
-		href='{{join '/movies/' movie.ids.api}}'
+		href='{{url (join '/movies/' movie.ids.api)}}'
 		aria-label="View {{movie.title}} movie page"
 	>
 		<figure class='movie-poster-picture'>
@@ -70,7 +70,7 @@
 
 	<div class='movie-actions'>
 	<a class='action-link' href='{{movie.posters.[0].sizes.[0].urls.main}}'>View Full-Size Poster</a>
-	<a class='action-link' href='{{join '/reviews/new?movieId=' movie.ids.api}}'>Write a Review</a>
+	<a class='action-link' href='{{url (join '/reviews/new?movieId=' movie.ids.api)}}'>Write a Review</a>
 	</div>
 	</div>
 	{{/if}}
@@ -273,9 +273,9 @@
 			aria-controls='details-{{movie.ids.api}} trailer-{{movie.ids.api}}'
 			aria-expanded='false'
 		>Load Movie Details</button>
-		<a class='action-link' href='{{join '/movies/' movie.ids.api}}'>View Movie Page</a>
+		<a class='action-link' href='{{url (join '/movies/' movie.ids.api)}}'>View Movie Page</a>
 	<a class='action-link' href='{{movie.posters.[0].sizes.[0].urls.main}}'>View Full-Size Poster</a>
-	<a class='action-link' href='{{join '/reviews/new?movieId=' movie.ids.api}}'>Write a Review</a>
+	<a class='action-link' href='{{url (join '/reviews/new?movieId=' movie.ids.api)}}'>Write a Review</a>
 	</div>
 	{{/if}}
 

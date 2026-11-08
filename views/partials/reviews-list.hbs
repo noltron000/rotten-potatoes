@@ -5,11 +5,11 @@
 			<header>
 				<h4>
 					{{#if review.ids.db}}
-					<a href='/reviews/{{review.ids.db}}?source=db'>
+					<a href='{{url (join (join '/reviews/' review.ids.db) '?source=db')}}'>
 						{{#if review.title}}{{review.title}}{{else}}Database review{{/if}}
 					</a>
 					{{else if review.ids.api}}
-					<a href='/reviews/{{review.ids.api}}?source=api'>
+					<a href='{{url (join (join '/reviews/' review.ids.api) '?source=api')}}'>
 						{{#if review.title}}{{review.title}}{{else}}Review{{/if}}
 					</a>
 					{{else}}

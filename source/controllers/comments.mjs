@@ -69,10 +69,10 @@ const controller = (app) => {
 
 			if (req.get('accept')?.includes('text/html')) {
 				if (comment.api_review_id) {
-					res.redirect(`/reviews/${comment.api_review_id}?source=api`)
+					res.redirect(`${req.baseUrl}/reviews/${comment.api_review_id}?source=api`)
 				}
 				else if (comment.db_review_id) {
-					res.redirect(`/reviews/${comment.db_review_id}?source=db`)
+					res.redirect(`${req.baseUrl}/reviews/${comment.db_review_id}?source=db`)
 				}
 				else {
 					res.status(400).send({err: 'Comment must be associated with a review'})
@@ -108,10 +108,10 @@ const controller = (app) => {
 			}
 
 			if (comment.api_review_id) {
-				res.redirect(`/reviews/${comment.api_review_id}?source=api`)
+				res.redirect(`${req.baseUrl}/reviews/${comment.api_review_id}?source=api`)
 			}
 			else if (comment.db_review_id) {
-				res.redirect(`/reviews/${comment.db_review_id}?source=db`)
+				res.redirect(`${req.baseUrl}/reviews/${comment.db_review_id}?source=db`)
 			}
 			else {
 				res.status(204).end()
@@ -140,10 +140,10 @@ const controller = (app) => {
 			}
 
 			if (comment.api_review_id) {
-				res.redirect(`/reviews/${comment.api_review_id}?source=api`)
+				res.redirect(`${req.baseUrl}/reviews/${comment.api_review_id}?source=api`)
 			}
 			else if (comment.db_review_id) {
-				res.redirect(`/reviews/${comment.db_review_id}?source=db`)
+				res.redirect(`${req.baseUrl}/reviews/${comment.db_review_id}?source=db`)
 			}
 			else {
 				res.status(204).end()
