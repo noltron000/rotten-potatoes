@@ -5,9 +5,10 @@
 	"main": "source/app.mjs",
 	"type": "module",
 	"scripts": {
-		"start": "sass public/scss:public/css && node source/app.mjs",
+		"build": "sass public/scss:public/css",
+		"start": "npm run build && node source/app.mjs",
 		"dev": "cross-env NODE_ENV=development concurrently --kill-others \"sass --watch public/scss:public/css\" \"nodemon --watch source --watch views source/app.mjs\"",
-		"test": "node --test test/api-classes.test.mjs"
+		"test": "node --test test/api-classes.test.mjs test/cloudflare-worker.test.mjs"
 	},
 	"repository": {
 		"type": "git",
