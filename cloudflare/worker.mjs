@@ -1,24 +1,23 @@
-const basePath = '/rotten-potatoes'
+const BASE_PATH = "/rotten-potatoes";
+const RENDER_ORIGIN = new URL("https://rotten-potatoes-0gsu.onrender.com");
+
+function isAppPath(pathname) {
+	return pathname === BASE_PATH || pathname.startsWith(`${BASE_PATH}/`);
+}
 
 export default {
-	async fetch(request, env) {
-		const incomingUrl = new URL(request.url)
-		if (
-			incomingUrl.pathname !== basePath
-			&& !incomingUrl.pathname.startsWith(`${basePath}/`)
-		) {
-			return fetch(request)
-		}
+	async fetch(request) {
+		const incomingUrl = new URL(request.url);
 
-		const renderOrigin = new URL(env.RENDER_ORIGIN)
-		if (renderOrigin.protocol !== 'https:' || renderOrigin.pathname !== '/') {
-			throw new Error('RENDER_ORIGIN must be an HTTPS origin without a path')
+		if (!isAppPath(incomingUrl.pathname)) {
+			return fetch(request);
 		}
 
 		const destination = new URL(
 			`${incomingUrl.pathname}${incomingUrl.search}`,
-			renderOrigin,
-		)
-		return fetch(new Request(destination, request))
+			RENDER_ORIGIN,
+		);
+
+		return fetch(new Request(destination, request));
 	},
-}
+};
