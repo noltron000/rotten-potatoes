@@ -5,16 +5,12 @@
 
 *Rotten Potatoes* is a clone of [*Rotten Tomatoes*](https://www.rottentomatoes.com/).
 It uses [*The Movie Database (TMDB)*](https://www.themoviedb.org/?language=en-US) API to power its curated movie lists.
-
 In addition to the reviews that it pulls from TMDB, this app has CRUD functionalities for its own reviews.
 That is to say, you can post a review for any movie on TMDB, view it, edit your review, and delete it.
 There is also a collection for review comments, so you can add comments under any review as well.
 
 Feel free to mess around with this, because this database does not connect with the TMDB API.
 That means your reviews won't be read on any site but this one.
-
-![A preview of *Rotten Potatoes*.](./public/preview.png)
-
 > #### Author's Note
 > Thanks for visiting my project repository!
 > This project was built in 2018 during my studies at [MakeSchool], as a part of my backend web course.
@@ -23,6 +19,8 @@ That means your reviews won't be read on any site but this one.
 > While most parts were complete (enough to pass), this project wasn't in a state I was proud of.
 > Now that it is 2026, I revisited the project and completed it.
 > Oh, and while I did use AI to complete some parts, I can confidently discuss any part of this project, describing how it works.
+
+![A preview of *Rotten Potatoes*.](./public/preview.png)
 
 ## Technologies Used
 - MongoDB Atlas
