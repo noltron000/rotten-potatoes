@@ -13,6 +13,8 @@ There is also a collection for review comments, so you can add comments under an
 Feel free to mess around with this, because this database does not connect with the TMDB API.
 That means your reviews won't be read on any site but this one.
 
+![A preview of *Rotten Potatoes*.](./public/preview.png)
+
 > #### Author's Note
 > Thanks for visiting my project repository!
 > This project was built in 2018 during my studies at [MakeSchool], as a part of my backend web course.
