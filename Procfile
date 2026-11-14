@@ -1,1 +1,0 @@
-web: node source/app.mjs
